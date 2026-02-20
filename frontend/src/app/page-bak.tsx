@@ -136,9 +136,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* API Documentation - Subscribers Get Same APIs as Sienna */}
-        <APIDocumentationCard />
-        <ZmartyPromotionCards />
+        {/* ZmartyChat Platform Promotion - Best Data Platform */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            🚀 ZmartyChat - Best Crypto Data Platform
+          </h2>
+          <ZmartyPromotionCards />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Trading Dashboard (2/3) */}
