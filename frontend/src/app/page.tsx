@@ -7,6 +7,7 @@ import ChatGame from "@/components/ChatGame";
 import StatsOverview from "@/components/StatsOverview";
 import ZmartyPromotionCards from "@/components/ZmartyPromotionCards";
 import APIDocumentationCard from "@/components/APIDocumentationCard";
+import TransparencySection from "@/components/TransparencySection";
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -151,6 +152,7 @@ export default function Home() {
           <div className="lg:col-span-2 space-y-6">
             <StatsOverview />
             <TradingDashboard />
+            <TransparencySection />
           </div>
 
           {/* Right: Chat Game (1/3) */}

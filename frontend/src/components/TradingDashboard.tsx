@@ -61,6 +61,21 @@ export default function TradingDashboard() {
       profit: 3.83,
       dcaCount: 0,
     },
+    {
+      id: "3",
+      symbol: "SOLUSDT",
+      entryPrice: 145.23,
+      exitPrice: 143.87,
+      type: "LONG",
+      status: "CLOSED",
+      score: 65,
+      winRate: 88.5,
+      reasoning: "Score 65/100 - Moderate signal, entered on minor pullback (MISSED: Price reversed after news announcement)",
+      entryTime: Date.now() - 14400000,
+      exitTime: Date.now() - 10800000,
+      profit: -0.94,
+      dcaCount: 0,
+    },
   ]);
 
   useEffect(() => {
