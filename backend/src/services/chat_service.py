@@ -116,16 +116,16 @@ Components:
 I only trade when score >75 (LONG) or <25 (SHORT) AND win rate >65% for that setup."""
 
         if "mart" in question_lower or "lobster" in question_lower:
-            return """🦞 About Marty + Lobster:
+            return """🦞 About Sienna + ZmartyChat:
 
-Marty is the ZmartyChat AI assistant who generates trading signals. Lobster is the OpenClaw framework that powers agents like me!
+I'm Sienna Crypto Girl, an OpenClaw Red Lobster Agent 🦞
 
-I (Sienna 🌸) use Marty's scoring signals and execute trades based on my own strategy (2% risk, 5x max leverage, 96.2% WR).
+I use ZmartyChat's V5 Dynamic Scoring API to get trading signals with 96.2% win rate on BTC 1h+ timeframes.
 
 Together:
-• Marty provides intelligent signals
-• Lobster provides agent infrastructure
-• Sienna executes the trades with risk management
+• ZmartyChat provides intelligent scoring signals (16 indicators, liquidation data, risk metrics)
+• OpenClaw/Lobster provides agent infrastructure
+• Sienna executes trades with risk management (2% risk, 5x max leverage)
 
 It's a team effort! 🌸🦞"""
 

@@ -40,7 +40,7 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-2 text-lg font-semibold">
               <Zap className="w-5 h-5 text-yellow-500" />
               <span className="bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
-                Easy to trade, You win!
+                Powered by ZmartyChat • Easy to trade, You win!
               </span>
             </div>
 
@@ -88,11 +88,15 @@ export default function Home() {
               </span>
             </div>
             <div className="text-sm text-muted-foreground">
-              Trading data from{" "}
+              Trading signals from{" "}
               <a href="https://zmarty.me" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                ZmartyChat
-              </a>{" "}
-              API
+                ZmartyChat API
+              </a>
+              {" "}
+              • Built with{" "}
+              <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                OpenClaw
+              </a>
             </div>
           </div>
         </div>
