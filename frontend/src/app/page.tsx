@@ -38,16 +38,16 @@ export default function Home() {
               </span>
             </div>
 
-            {/* ZmartyChat CTA */}
+            {/* ZmartyChat CTA - Membership Focus */}
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="https://zmarty.me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 rounded-lg transition-all hover:scale-105 border border-purple-400/50"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 rounded-lg transition-all hover:scale-105 border border-purple-400/50 shadow-lg shadow-purple-500/20"
               >
                 <Zap className="w-5 h-5 text-yellow-400" />
-                <span className="text-sm font-bold">Visit ZmartyChat</span>
+                <span className="text-sm font-bold">Join ZmartyChat</span>
               </a>
 
               <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-secondary/50 rounded-lg border border-white/10">
@@ -65,25 +65,26 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        {/* ZmartyChat App Promotion Banner */}
+        {/* ZmartyChat Membership Banner */}
         <div className="mb-8 p-6 bg-gradient-to-r from-purple-900/40 via-purple-800/30 to-purple-700/40 border border-purple-500/50 rounded-xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex-1">
               <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                🚀 Try the Full ZmartyChat Platform
+                🚀 Join ZmartyChat - 96.2% Win Rate
               </h3>
               <p className="text-muted-foreground mb-4">
-                <strong className="text-purple-300">ZmartyChat</strong> is a complete trading intelligence platform with scoring, liquidation analysis, smart signals, paper trading, and AI-powered chat.
-                <strong className="text-purple-300">Everything you need in one app!</strong>
+                <strong className="text-purple-300">Access the same 80+ APIs</strong> that power Sienna&apos;s 96.2% win rate.
+                Real-time crypto data, AI analysis, smart signals, and paper trading.
+                <strong className="text-purple-300">Everything you need to win!</strong>
               </p>
               <a
                 href="https://zmarty.me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-lg transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all hover:scale-105 shadow-lg shadow-purple-500/30"
               >
                 <Zap className="w-5 h-5" />
-                Try ZmartyChat App
+                Join ZmartyChat Now
               </a>
             </div>
             <div className="hidden md:block grid grid-cols-2 gap-4">
@@ -135,6 +136,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Why Join ZmartyChat */}
+        <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          🎯 Why Join ZmartyChat?
+        </h2>
 
         {/* API Documentation - Subscribers Get Same APIs as Sienna */}
         <APIDocumentationCard />
