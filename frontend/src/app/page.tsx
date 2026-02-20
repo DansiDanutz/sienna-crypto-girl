@@ -5,6 +5,7 @@ import { TrendingUp, DollarSign, Activity, MessageSquare, Lobster, Zap } from "l
 import TradingDashboard from "@/components/TradingDashboard";
 import ChatGame from "@/components/ChatGame";
 import StatsOverview from "@/components/StatsOverview";
+import MonetizationCards from "@/components/MonetizationCards";
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -135,6 +136,14 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Monetization - Make Money 💰 */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            💰 Make Money With Sienna 🌸
+          </h2>
+          <MonetizationCards />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
