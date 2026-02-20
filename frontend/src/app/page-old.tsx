@@ -36,7 +36,7 @@ export default function Home() {
               </span>
             </div>
 
-            {/* ZmartyChat App CTA */}
+            {/* ZmartyChat Promotion */}
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="https://zmarty.me"
@@ -66,16 +66,16 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        {/* ZmartyChat App Promotion Banner */}
+        {/* ZmartyChat Promotion Banner */}
         <div className="mb-8 p-6 bg-gradient-to-r from-purple-900/40 via-purple-800/30 to-purple-700/40 border border-purple-500/50 rounded-xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex-1">
               <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                🚀 Try the Full ZmartyChat Platform
+                🚀 Get the Same 96.2% Win Rate Signals
               </h3>
               <p className="text-muted-foreground mb-4">
-                <strong className="text-purple-300">ZmartyChat</strong> is a complete trading intelligence platform with scoring, liquidation analysis, smart signals, paper trading, and AI-powered chat.
-                <strong className="text-purple-300">Everything you need in one app!</strong>
+                Sienna uses <strong className="text-purple-300">ZmartyChat's V5 Dynamic Scoring API</strong> to achieve 96.2% win rate on BTC 1h+ timeframes.
+                <strong className="text-purple-300">You can access the same signals!</strong>
               </p>
               <a
                 href="https://zmarty.me"
@@ -84,26 +84,17 @@ export default function Home() {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-lg transition-all hover:scale-105"
               >
                 <Zap className="w-5 h-5" />
-                Try ZmartyChat App
+                Try ZmartyChat FREE
               </a>
             </div>
-            <div className="hidden md:block grid grid-cols-2 gap-4">
+            <div className="hidden md:block space-y-4">
               <div className="flex items-center gap-3 px-4 py-3 bg-purple-950/50 rounded-lg border border-purple-500/30">
                 <div className="w-12 h-12 rounded-full bg-purple-600/30 flex items-center justify-center text-2xl">
                   📊
                 </div>
                 <div>
                   <div className="font-bold text-purple-300">V5 Dynamic Scoring</div>
-                  <div className="text-sm text-muted-foreground">16 indicators + directional scores</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 px-4 py-3 bg-purple-950/50 rounded-lg border border-purple-500/30">
-                <div className="w-12 h-12 rounded-full bg-purple-600/30 flex items-center justify-center text-2xl">
-                  💥
-                </div>
-                <div>
-                  <div className="font-bold text-purple-300">Liquidation Clusters</div>
-                  <div className="text-sm text-muted-foreground">27 symbols real-time analysis</div>
+                  <div className="text-sm text-muted-foreground">16 technical indicators + liquidation data</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 px-4 py-3 bg-purple-950/50 rounded-lg border border-purple-500/30">
@@ -112,7 +103,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-bold text-purple-300">Smart Signals</div>
-                  <div className="text-sm text-muted-foreground">96.2% WR auto-filtered</div>
+                  <div className="text-sm text-muted-foreground">Only fires when WR > 65%</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 px-4 py-3 bg-purple-950/50 rounded-lg border border-purple-500/30">
@@ -121,16 +112,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-bold text-purple-300">Paper Trading</div>
-                  <div className="text-sm text-muted-foreground">$10K virtual capital test</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 px-4 py-3 bg-purple-950/50 rounded-lg border border-purple-500/30">
-                <div className="w-12 h-12 rounded-full bg-purple-600/30 flex items-center justify-center text-2xl">
-                  💬
-                </div>
-                <div>
-                  <div className="font-bold text-purple-300">AI-Powered Chat</div>
-                  <div className="text-sm text-muted-foreground">Real-time Zmarty intelligence</div>
+                  <div className="text-sm text-muted-foreground">$10K virtual capital to test</div>
                 </div>
               </div>
             </div>
@@ -172,12 +154,8 @@ export default function Home() {
                 <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">FREE</span>
               </div>
               <div className="flex items-center gap-2">
-                <a href="https://zmarty.me/dashboard" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  Full Dashboard
-                </a>
-                <span className="text-muted-foreground">•</span>
                 <a href="https://zmarty.me/signals" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  Smart Signals
+                  V5 Scoring
                 </a>
                 <span className="text-muted-foreground">•</span>
                 <a href="https://zmarty.me/paper-trading" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
