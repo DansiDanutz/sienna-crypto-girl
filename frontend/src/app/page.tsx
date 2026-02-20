@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TrendingUp, DollarSign, Activity, MessageSquare, Lobster, Zap } from "lucide-react";
+import { TrendingUp, DollarSign, Activity, MessageSquare, Lobster, Zap, ArrowRight } from "lucide-react";
 import TradingDashboard from "@/components/TradingDashboard";
 import ChatGame from "@/components/ChatGame";
 import StatsOverview from "@/components/StatsOverview";
-import MonetizationCards from "@/components/MonetizationCards";
+import ZmartyPromotionCards from "@/components/ZmartyPromotionCards";
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -37,7 +37,7 @@ export default function Home() {
               </span>
             </div>
 
-            {/* ZmartyChat App CTA */}
+            {/* ZmartyChat CTA */}
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="https://zmarty.me"
@@ -46,10 +46,7 @@ export default function Home() {
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 rounded-lg transition-all hover:scale-105 border border-purple-400/50"
               >
                 <Zap className="w-5 h-5 text-yellow-400" />
-                <div className="flex flex-col items-start">
-                  <span className="text-sm font-bold">Try ZmartyChat App</span>
-                  <span className="text-xs text-purple-200">• Full Trading Platform</span>
-                </div>
+                <span className="text-sm font-bold">Visit ZmartyChat</span>
               </a>
 
               <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-secondary/50 rounded-lg border border-white/10">
@@ -138,12 +135,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Monetization - Make Money 💰 */}
+        {/* ZmartyChat Platform Promotion - Best Data Platform */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-6 text-center">
-            💰 Make Money With Sienna 🌸
+          <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            🚀 ZmartyChat - Best Crypto Data Platform
           </h2>
-          <MonetizationCards />
+          <ZmartyPromotionCards />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
