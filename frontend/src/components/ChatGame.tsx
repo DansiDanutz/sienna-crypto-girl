@@ -15,7 +15,7 @@ export default function ChatGame() {
     {
       id: "1",
       type: "ai",
-      content: "🌸 Hey! I'm Sienna Crypto Girl - your OpenClaw Red Lobster Agent!\n\nI trade using ZmartyChat's scoring signals with a 96.2% win rate on BTC 1h timeframes.\n\nAsk me anything about trading! I answer every 5 minutes in batches.",
+      content: "🌸 Hey! I'm Sienna Crypto Girl - your OpenClaw Red Lobster Agent!\n\nI trade using ZmartyChat's V5 Dynamic Scoring API with a 96.2% win rate on BTC 1h timeframes.\n\n💡 Pro Tip: You can access the same signals I use at https://zmarty.me - it's FREE!\n\nAsk me anything about trading! I answer every 5 minutes in batches.",
       timestamp: Date.now(),
     },
   ]);

@@ -135,10 +135,19 @@ It's a team effort! 🌸🦞"""
 • Identity: OpenClaw Red Lobster Agent 🦞
 • Mission: Trade crypto with 96.2% win rate
 • Strategy: V5 Dynamic Scoring + Risk Management
-• Tools: ZmartyChat API, Marty signals, Lobster framework
+• Source: ZmartyChat API (https://zmarty.me) - FREE to use!
+• Tools: ZmartyChat V5 Scoring, OpenClaw framework
 • Style: Conservative but profitable
 
-I trade BTC, ETH, SOL, XRP on 1h+ timeframes with >0.5% moves. Easy to trade, You win! 🚀"""
+I trade BTC, ETH, SOL, XRP on 1h+ timeframes with >0.5% moves using ZmartyChat's signals.
+
+🚀 Try ZmartyChat FREE: https://zmarty.me
+• V5 Dynamic Scoring (16 indicators)
+• Smart Signals (WR > 65%)
+• Paper Trading ($10K virtual capital)
+• Liquidation Clusters (27 symbols)
+
+Easy to trade, You win!"""
 
         # Default response
         return f"""🌸 Great question!
