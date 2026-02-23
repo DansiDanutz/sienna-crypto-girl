@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sienna - Your AI Trading Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            background-clip: text;
+            fill-color: white;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(249, 115, 22, 0.5);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav-link:hover {
+            border-bottom-color: #f97316;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="text-2xl font-bold gradient-text">Sienna</div>
+                    <div class="text-sm text-gray-400">Your AI Trading Companion</div>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="nav-link text-white/80 hover:text-white py-2">Features</a>
+                    <a href="#ai" class="nav-link text-white/80 hover:text-white py-2">AI Intelligence</a>
+                    <a href="#pricing" class="nav-link text-white/80 hover:text-white py-2">Pricing</a>
+                    <a href="#report" class="nav-link text-white/80 hover:text-white py-2">Market Report</a>
+                </div>
+                <a href="#try" class="btn-primary px-6 py-2 rounded-full font-semibold text-white">Try Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-6xl font-extrabold mb-6 gradient-text">
+                Meet Sienna
+            </h1>
+            <p class="text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Your Friendly AI Trading Companion 🌸
+            </p>
+            <p class="text-lg text-gray-400 mb-10 max-w-4xl mx-auto">
+                Navigate cryptocurrency markets with confidence. Sienna delivers real-time market data, 
+                AI-powered pattern recognition based on historical analysis, and precise Win Rate Ratios 
+                for Long/Short positions across all major exchanges.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="#try" class="btn-primary px-8 py-4 rounded-full font-semibold text-lg text-white">
+                    Start Trading Free
+                </a>
+                <a href="#pricing" class="px-8 py-4 rounded-full font-semibold text-lg border border-gray-600 hover:border-gray-500 transition-all">
+                    View Plans
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
+                <div class="stat-card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-400 mb-2">15+</div>
+                    <div class="text-sm text-gray-400">AI Agents</div>
+                </div>
+                <div class="stat-card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">4</div>
+                    <div class="text-sm text-gray-400">AI Providers</div>
+                </div>
+                <div class="stat-card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-pink-400 mb-2">24/7</div>
+                    <div class="text-sm text-gray-400">Market Watch</div>
+                </div>
+                <div class="stat-card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-yellow-400 mb-2">Real-Time</div>
+                    <div class="text-sm text-gray-400">Risk Analysis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-gray-400">Everything you need for intelligent trading decisions</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold mb-3">Real-Time Market Data</h3>
+                    <p class="text-gray-300 mb-4">
+                        Access live market data from all major exchanges. Sienna aggregates real-time price action, 
+                        volume, and order book data, giving you a complete picture across 
+                        <span class="text-purple-400">Binance</span>, <span class="text-blue-400">Coinbase</span>, 
+                        <span class="text-pink-400">Kraken</span>, and more.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 font-semibold">Live Prices</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-blue-400 font-semibold">Volume Analysis</span>
+                    </div>
+                </div>
+
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">Win Rate Ratios</h3>
+                    <p class="text-gray-300 mb-4">
+                        Know your odds before you trade. Sienna calculates precise Win Rate Ratios for both 
+                        Long and Short positions based on extensive historical data analysis, showing you the 
+                        <span class="text-yellow-400">probability of success</span> for each trade setup.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-purple-400 font-semibold">Long Analytics</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-pink-400 font-semibold">Short Analytics</span>
+                    </div>
+                </div>
+
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-2xl font-bold mb-3">Pattern Recognition</h3>
+                    <p class="text-gray-300 mb-4">
+                        Sienna identifies <span class="text-green-400">15+ proven chart patterns</span> by analyzing years of 
+                        historical market data. From head-and-shoulders to triangles and flags, see patterns 
+                        as they form with <span class="text-yellow-400">historical success rates</span> for each setup.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-blue-400 font-semibold">15+ Patterns</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-purple-400 font-semibold">Success Rates</span>
+                    </div>
+                </div>
+
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-3">Multi-LLM Intelligence</h3>
+                    <p class="text-gray-300 mb-4">
+                        Sienna orchestrates <span class="text-pink-400">Grok, GPT-5, Claude 4.5, and Gemini</span> to analyze 
+                        your market questions from multiple AI perspectives. Get consensus answers backed by the world's most 
+                        advanced language models working together.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-purple-400 font-semibold">4 AI Providers</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-blue-400 font-semibold">Consensus Answers</span>
+                    </div>
+                </div>
+
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-bold mb-3">Long & Short Analytics</h3>
+                    <p class="text-gray-300 mb-4">
+                        Get separate Win Rate Ratios for both Long and Short positions. Sienna analyzes which 
+                        direction has higher probability based on current market conditions and historical patterns, 
+                        helping you <span class="text-yellow-400">choose the right position type</span>.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 font-semibold">Direction Analysis</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-pink-400 font-semibold">Probability Scoring</span>
+                    </div>
+                </div>
+
+                <div class="feature-card card p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-2xl font-bold mb-3">Multi-Exchange Coverage</h3>
+                    <p class="text-gray-300 mb-4">
+                        Access real-time data and Win Rate analytics across <span class="text-purple-400">Binance</span>, 
+                        <span class="text-blue-400">Coinbase</span>, <span class="text-pink-400">Kraken</span>, and all major 
+                        cryptocurrency exchanges. <span class="text-yellow-400">One platform, complete market coverage</span> 
+                        with unified data streams.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-green-400 font-semibold">100+ Exchanges</span>
+                        <span class="text-gray-500">•</span>
+                        <span class="text-purple-400 font-semibold">Unified Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="ai" class="py-20 px-6 gradient-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-8">How It Works</h2>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-6">
+                            <div class="text-5xl font-bold text-purple-400">01</div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Connect & Monitor</h3>
+                                <p class="text-gray-300">
+                                    Connect Sienna to your preferred exchange and start receiving real-time market data streams. 
+                                    Chat with Sienna about any trading pair to get instant data-driven insights.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-6">
+                            <div class="text-5xl font-bold text-blue-400">02</div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Pattern Detection</h3>
+                                <p class="text-gray-300">
+                                    Sienna's AI agents continuously scan historical data and real-time price action to identify 
+                                    <span class="text-yellow-400">proven chart patterns</span> across all your watchlists.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-6">
+                            <div class="text-5xl font-bold text-pink-400">03</div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Win Rate Analysis</h3>
+                                <p class="text-gray-300">
+                                    Get precise Win Rate Ratios for Long and Short positions based on current patterns and 
+                                    <span class="text-green-400">historical performance records</span>. See the probability of 
+                                    success before you trade.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-6">
+                            <div class="text-5xl font-bold text-yellow-400">04</div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">You Decide</h3>
+                                <p class="text-gray-300">
+                                    Trade with confidence backed by real-time data, historical pattern analysis, and 
+                                    <span class="text-purple-400">statistical win rates</span>. No tips, just proven data intelligence.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:block">
+                    <div class="text-6xl text-center mb-8">🎯</div>
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4 text-center">Claude 4.5</h3>
+                        <div class="text-gray-300 mb-6">
+                            <span class="text-purple-400 font-semibold">Advanced reasoning</span> & <span class="text-blue-400 font-semibold">market analysis</span>
+                        </div>
+                        <div class="text-6xl text-center mb-8">G</div>
+                        <div class="card p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold mb-4 text-center">GPT-5</h3>
+                            <div class="text-gray-300 mb-6">
+                                <span class="text-pink-400 font-semibold">Pattern recognition</span> & <span class="text-yellow-400 font-semibold">deep insights</span>
+                            </div>
+                        <div class="text-6xl text-center mb-8">🐙</div>
+                        <div class="card p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold mb-4 text-center">Grok</h3>
+                            <div class="text-gray-300 mb-6">
+                                <span class="text-green-400 font-semibold">Social sentiment</span> & <span class="text-purple-400 font-semibold">real-time trends</span>
+                            </div>
+                        <div class="text-6xl text-center mb-8">X</div>
+                        <div class="card p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold mb-4 text-center">Gemini</h3>
+                            <div class="text-gray-300 mb-6">
+                                <span class="text-blue-400 font-semibold">Multi-modal</span> <span class="text-yellow-400 font-semibold">market intelligence</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exchanges Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">100+ Exchanges Supported</h2>
+                <p class="text-xl text-gray-400">Real-time data from all major cryptocurrency exchanges</p>
+            </div>
+            
+            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+                <div class="card p-6 rounded-xl text-center hover:border-purple-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">⟨⟩ BINANCE</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center hover:border-blue-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">◯ Coinbase</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center hover:border-pink-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">🐙 Kraken</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center hover:border-purple-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">⟩⟩ Bybit</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center hover:border-blue-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">KC KuCoin</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center hover:border-pink-500/50 transition-all cursor-pointer">
+                    <div class="text-4xl mb-3">✕ OKX</div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <p class="text-gray-400">...and 94 more exchanges</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Features Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Advanced Features</h2>
+                <p class="text-xl text-gray-400">Professional tools for serious traders</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-8 rounded-2xl">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-bold mb-3">Real-Time Liquidation Clusters</h3>
+                    <p class="text-gray-300 mb-4">
+                        Win Rate Ratio for Long and Short positions. Shows exact liquidation levels where 
+                        mass position closures occurred, helping you avoid high-risk zones and identify 
+                        <span class="text-yellow-400">potential reversal points</span>.
+                    </p>
+                </div>
+                
+                <div class="card p-8 rounded-2xl">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">Smart Alerts</h3>
+                    <p class="text-gray-300 mb-4">
+                        AI-powered notifications for opportunities. Get alerted when patterns form, 
+                        liquidation clusters appear, or <span class="text-purple-400">win rate ratios</span> indicate 
+                        favorable setups.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="py-20 px-6 gradient-bg">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="text-6xl mb-8">🔐</div>
+            <h2 class="text-4xl font-bold mb-6">Read-Only Access</h2>
+            <p class="text-2xl text-gray-300 mb-8">
+                Your funds stay secure on exchanges. No API key required. Just connect your wallet and 
+                <span class="text-purple-400">trade with confidence</span>.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="card px-6 py-4 rounded-xl">
+                    <div class="text-xl font-semibold mb-2">Claude 4.5</div>
+                    <div class="text-gray-300">
+                        Anthropic<br>
+                        <span class="text-purple-400">Advanced reasoning & market analysis</span>
+                    </div>
+                </div>
+                <div class="card px-6 py-4 rounded-xl">
+                    <div class="text-xl font-semibold mb-2">GPT-5</div>
+                    <div class="text-gray-300">
+                        OpenAI<br>
+                        <span class="text-pink-400">Pattern recognition & deep insights</span>
+                    </div>
+                </div>
+                <div class="card px-6 py-4 rounded-xl">
+                    <div class="text-xl font-semibold mb-2">Gemini</div>
+                    <div class="text-gray-300">
+                        Google<br>
+                        <span class="text-blue-400">Multi-modal market intelligence</span>
+                    </div>
+                </div>
+                <div class="card px-6 py-4 rounded-xl">
+                    <div class="text-xl font-semibold mb-2">Grok</div>
+                    <div class="text-gray-300">
+                        xAI<br>
+                        <span class="text-yellow-400">Social sentiment & real-time trends</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Simple Pricing</h2>
+                <p class="text-xl text-gray-400">Start free, upgrade as you grow</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Free Plan -->
+                <div class="card p-8 rounded-2xl">
+                    <div class="text-xl font-bold text-gray-400 mb-2">Free Forever</div>
+                    <div class="text-5xl font-bold text-purple-400 mb-6">$0</div>
+                    <div class="text-3xl mb-6">🎁 FREE</div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Text with Sienna</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Set 1 Symbol for data updates</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Liquidation Clusters & important levels</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Win Rate Ratio for Long/Short</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Live Whale and AI Alerts</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">One daily Report</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#try" class="block w-full text-center btn-primary px-6 py-4 rounded-full font-semibold text-white">
+                        Get Started Free
+                    </a>
+                </div>
+                
+                <!-- Gold Plan -->
+                <div class="card p-8 rounded-2xl border-2 border-purple-500/50">
+                    <div class="text-xl font-bold text-purple-400 mb-2">Most Popular</div>
+                    <div class="text-5xl font-bold text-blue-400 mb-6">$19</div>
+                    <div class="text-3xl mb-6">🏆 500 Credits</div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Everything in Free</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Talk with Sienna</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Set 3 Symbols for data updates</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Liquidation Clusters & important levels</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Win Rate Ratio for Long/Short</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Live Whale and AI Alerts</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Two daily Reports</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#try" class="block w-full text-center btn-primary px-6 py-4 rounded-full font-semibold text-white">
+                        Upgrade to Gold
+                    </a>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="card p-8 rounded-2xl border-2 border-pink-500/50">
+                    <div class="text-xl font-bold text-pink-400 mb-2">Best Value</div>
+                    <div class="text-5xl font-bold text-yellow-400 mb-6">$50</div>
+                    <div class="text-3xl mb-6">💎 1,500 Credits</div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Everything in Gold</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Referral Commission</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Most Popular</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Zmarty Companion & Rewards</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">10 Symbols for data updates</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Multi Exchanges Liquidation Clusters</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Win Rate Ratio for Long/Short</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Risk Metric-Patterns-20+ indicators</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">AI Alerts</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-400 text-xl">✓</span>
+                            <span class="text-gray-300">Four daily Reports</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#try" class="block w-full text-center btn-primary px-6 py-4 rounded-full font-semibold text-white">
+                        Upgrade to Premium
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Report Section -->
+    <section id="report" class="py-20 px-6 gradient-bg">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Market Report</h2>
+                <p class="text-xl text-gray-400">Comprehensive analysis powered by Sienna AI</p>
+            </div>
+            
+            <div class="card p-8 rounded-2xl mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">500</div>
+                        <div class="text-sm text-gray-400">Credits</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">Best Value</div>
+                        <div class="text-sm text-gray-400">Free Forever</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-pink-400 mb-2">1,500</div>
+                        <div class="text-sm text-gray-400">Credits</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-yellow-400 mb-2">1,500</div>
+                        <div class="text-sm text-gray-400">Credits</div>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-8">
+                    <p class="text-lg text-gray-300">
+                        Access Sienna's comprehensive market reports with real-time data, technical analysis, 
+                        and AI-powered insights. Only available for <span class="text-purple-400 font-semibold">subscribers</span>.
+                    </p>
+                </div>
+                
+                <a href="#pricing" class="block w-full text-center btn-primary px-8 py-4 rounded-full font-semibold text-lg text-white">
+                    Subscribe to Access Reports
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Trusted by 10,000+ Traders</h2>
+                <p class="text-xl text-gray-400">Join thousands of traders who rely on Sienna daily</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-xl">
+                    <div class="text-4xl mb-4">✅</div>
+                    <p class="text-gray-300 mb-4">
+                        "The Win Rate Ratios changed my trading game. I went from guessing to making 
+                        <span class="text-purple-400 font-semibold">data-driven decisions</span>."
+                    </p>
+                    <div class="flex items-center gap-2 mt-4">
+                        <div>
+                            <div class="text-sm text-gray-400">Best $50/month</div>
+                            <div class="text-lg font-semibold text-purple-400">I've ever spent</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <div class="text-4xl mb-4">✅</div>
+                    <p class="text-gray-300 mb-4">
+                        "Liquidation Clusters feature is incredible. I can see exactly where mass 
+                        liquidations happened and <span class="text-pink-400 font-semibold">avoid those zones</span>. It's like 
+                        having <span class="text-yellow-400">x-ray vision for markets</span>."
+                    </p>
+                    <div class="flex items-center gap-2 mt-4">
+                        <div class="text-sm text-gray-400">Verified Trader</div>
+                    </div>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <div class="text-4xl mb-4">✅</div>
+                    <p class="text-gray-300 mb-4">
+                        "I started with Free plan just to test it out. Within a week I upgraded to Gold. The 
+                        <span class="text-blue-400 font-semibold">multi-AI analysis</span> gives me insights I couldn't get 
+                        anywhere else."
+                    </p>
+                    <div class="flex items-center gap-2 mt-4">
+                        <div>
+                            <div class="text-sm text-gray-400">No credit card required</div>
+                            <div class="text-lg font-semibold text-purple-400">14-day free trial</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="try" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-6 gradient-text">Start Trading with Confidence</h2>
+            <p class="text-2xl text-gray-300 mb-10">
+                Join <span class="text-purple-400 font-semibold">10,000+ traders</span> using Sienna's real-time data, 
+                pattern recognition, and win rate analytics. Make informed decisions backed by 
+                <span class="text-yellow-400">multiple AI perspectives</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="btn-primary px-10 py-5 rounded-full font-bold text-lg text-white">
+                    🚀 Get Started Free
+                </a>
+                <a href="#pricing" class="px-10 py-5 rounded-full font-bold text-lg border-2 border-gray-600 hover:border-gray-500 transition-all">
+                    💎 View Plans
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#report" class="text-gray-400 hover:text-white transition-colors">Market Report</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Community</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">X (Twitter)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Discord</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Telegram</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 text-sm">
+                <p>© 2026 Sienna. All rights reserved.</p>
+                <p class="mt-2">Powered by Zmarty | AI Intelligence Platform</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
