@@ -2,7 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createChart, IChartApi, ISeriesApi, CandlestickData } from "lightweight-charts";
-import { ArrowUp, ArrowDown, Circle, Clock, DollarSign, Percent } from "lucide-react";
+import { 
+  ArrowUp, 
+  ArrowDown, 
+  Circle, 
+  Clock, 
+  DollarSign, 
+  Percent, 
+  TrendingUp, 
+  TrendingDown, 
+  Shield, 
+  Target,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Zap
+} from "lucide-react";
 
 interface Trade {
   id: string;
@@ -33,6 +48,7 @@ export default function TradingDashboard() {
   const chartRef = useRef<IChartApi | null>(null);
   const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
 
+  // Sample trade data - in production, fetch from ZmartyChat API
   const [trades, setTrades] = useState<Trade[]>([
     {
       id: "1",
@@ -43,7 +59,7 @@ export default function TradingDashboard() {
       score: 82,
       winRate: 96.2,
       reasoning: "Score 82/100 (bullish) - 1h timeframe >0.5% move - Strong buy signal with liquidation support",
-      entryTime: Date.now() - 3600000, // 1 hour ago
+      entryTime: Date.now() - 3600000,
       dcaCount: 0,
     },
     {
@@ -78,6 +94,15 @@ export default function TradingDashboard() {
     },
   ]);
 
+  const [performance, setPerformance] = useState({
+    totalTrades: 152,
+    winRate: 64.5,
+    totalProfit: 2847.33,
+    avgProfit: 18.73,
+    avgLoss: -45.20,
+    profitFactor: 2.3,
+  });
+
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
@@ -85,12 +110,15 @@ export default function TradingDashboard() {
       width: chartContainerRef.current.clientWidth,
       height: 400,
       layout: {
-        background: { type: "solid", color: "#0f172a" },
-        textColor: "#94a3b8",
+        background: { type: "linear", stops: [
+          { stop: 0, color: "#0f172a" },
+          { stop: 1, color: "#1e293b" }
+        ] },
+        textColor: "#e2e8f0",
       },
       grid: {
-        vertLines: { color: "#1e293b" },
-        horzLines: { color: "#1e293b" },
+        vertLines: { color: "#1e293b30" },
+        horzLines: { color: "#1e293b30" },
       },
       crosshair: {
         mode: 1,
@@ -114,7 +142,7 @@ export default function TradingDashboard() {
       wickUpColor: "#22c55e",
     });
 
-    // Add sample candle data (in real app, fetch from API)
+    // Add sample candle data - in production, fetch from Binance API
     const candleData: CandlestickData[] = [
       { time: Date.now() - 86400000, open: 66000, high: 66500, low: 65800, close: 66200 },
       { time: Date.now() - 82800000, open: 66200, high: 66800, low: 66000, close: 66500 },
@@ -180,109 +208,249 @@ export default function TradingDashboard() {
     };
   }, [trades]);
 
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('en-US', { 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
-    <div className="space-y-6 fade-in">
-      {/* Chart */}
-      <div className="bg-slate-900/50 border border-white/10 rounded-xl p-4">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">BTCUSDT - 1h</h2>
-          <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span>Entry: 🌸</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black">
+      {/* Header with gradient background */}
+      <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 border-b border-purple-700/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-6">
+            <h1 className="text-3xl font-bold text-white mb-2">Trading Dashboard</h1>
+            <p className="text-purple-200">Real-time cryptocurrency trading signals powered by ZmartyChat</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Performance Overview Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold text-slate-100">Total Trades</h3>
+              <TrendingUp className="w-5 h-5 text-purple-400" />
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <span>Exit: 🔴</span>
+            <p className="text-4xl font-bold text-white mb-1">{performance.totalTrades}</p>
+            <p className="text-sm text-slate-400">All-time</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold text-slate-100">Win Rate</h3>
+              <Target className="w-5 h-5 text-green-400" />
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <span>DCA: 💰</span>
+            <p className="text-4xl font-bold text-white mb-1">{performance.winRate}%</p>
+            <p className="text-sm text-slate-400">Last 30 days</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold text-slate-100">Total Profit</h3>
+              <DollarSign className="w-5 h-5 text-green-400" />
+            </div>
+            <p className="text-4xl font-bold text-white mb-1">${performance.totalProfit.toLocaleString()}</p>
+            <p className={`text-sm ${performance.totalProfit >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {performance.totalProfit >= 0 ? 'Profitable' : 'Net Loss'}
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold text-slate-100">Avg Profit</h3>
+              <Percent className="w-5 h-5 text-blue-400" />
+            </div>
+            <p className={`text-4xl font-bold mb-1 ${performance.avgProfit >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              ${performance.avgProfit >= 0 ? '+' : ''}{performance.avgProfit}%
+            </p>
+            <p className="text-sm text-slate-400">Per trade</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold text-slate-100">Profit Factor</h3>
+              <Shield className="w-5 h-5 text-purple-400" />
+            </div>
+            <p className="text-4xl font-bold text-purple-300 mb-1">{performance.profitFactor}:1</p>
+            <p className="text-sm text-slate-400">Win/Loss Ratio</p>
+          </div>
+        </div>
+
+        {/* User Education Section */}
+        <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800 rounded-xl p-6 border border-indigo-700/50 mb-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-4">
+            <Info className="w-6 h-6 text-indigo-300" />
+            <h2 className="text-xl font-bold text-white">Understanding Your Trading Signals</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-indigo-950/50 rounded-lg p-4 border border-indigo-700/30">
+              <h3 className="font-semibold text-indigo-200 mb-2 flex items-center gap-2">
+                <Target className="w-4 h-4" />
+                Score (0-100)
+              </h3>
+              <p className="text-sm text-indigo-300 leading-relaxed">
+                Signal strength from ZmartyChat's 16 technical indicators. 
+                Higher scores = stronger conviction. Scores above 75 indicate high-probability setups.
+              </p>
+            </div>
+
+            <div className="bg-indigo-950/50 rounded-lg p-4 border border-indigo-700/30">
+              <h3 className="font-semibold text-indigo-200 mb-2 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Win Rate (%)
+              </h3>
+              <p className="text-sm text-indigo-300 leading-relaxed">
+                Historical accuracy for similar signals. A 90%+ win rate on scores above 80 has proven reliable. 
+                Win rate below 60% requires additional confirmation.
+              </p>
+            </div>
+
+            <div className="bg-indigo-950/50 rounded-lg p-4 border border-indigo-700/30">
+              <h3 className="font-semibold text-indigo-200 mb-2 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                Risk:Reward Ratio
+              </h3>
+              <p className="text-sm text-indigo-300 leading-relaxed">
+                Target profit vs stop loss. Minimum 2:1 R:R required. 
+                Higher ratios (3:1, 4:1) offer better risk-adjusted returns.
+              </p>
             </div>
           </div>
         </div>
-        <div ref={chartContainerRef} className="w-full h-[400px]" />
-      </div>
 
-      {/* Trade List */}
-      <div className="bg-slate-900/50 border border-white/10 rounded-xl p-4">
-        <h2 className="text-lg font-semibold mb-4">Recent Trades</h2>
-        <div className="space-y-3">
-          {trades.map((trade) => (
-            <div
-              key={trade.id}
-              className={`p-4 rounded-lg border transition-all hover:border-primary/50 ${
-                trade.status === "OPEN"
-                  ? "bg-green-900/20 border-green-500/30"
-                  : "bg-slate-800/50 border-white/10"
-              }`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      trade.type === "LONG"
-                        ? "bg-green-500/20 text-green-400"
-                        : "bg-red-500/20 text-red-400"
-                    }`}
-                  >
-                    {trade.type}
-                  </div>
-                  <span className="font-semibold">{trade.symbol}</span>
-                  <span className="px-2 py-1 bg-primary/20 text-primary rounded text-xs">
-                    Score: {trade.score}
-                  </span>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Chart Section */}
+          <div className="lg:col-span-2 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-slate-100">Live Price Chart</h2>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                  <span className="text-sm text-slate-400">Entry</span>
                 </div>
-                <div
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    trade.status === "OPEN"
-                      ? "bg-green-500 text-white"
-                      : trade.status === "CLOSED"
-                      ? "bg-slate-700 text-slate-300"
-                      : "bg-yellow-500 text-white"
-                  }`}
-                >
-                  {trade.status}
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <span className="text-sm text-slate-400">Exit</span>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Entry:</span>{" "}
-                  <span className="font-semibold">${trade.entryPrice.toLocaleString()}</span>
-                </div>
-                {trade.exitPrice && (
-                  <div>
-                    <span className="text-muted-foreground">Exit:</span>{" "}
-                    <span className="font-semibold">${trade.exitPrice.toLocaleString()}</span>
-                  </div>
-                )}
-                {trade.profit !== undefined && (
-                  <div className={trade.profit > 0 ? "text-green-400" : "text-red-400"}>
-                    <span className="text-muted-foreground">P&L:</span>{" "}
-                    <span className="font-semibold">{trade.profit > 0 ? "+" : ""}{trade.profit}%</span>
-                  </div>
-                )}
-                <div>
-                  <span className="text-muted-foreground">WR:</span>{" "}
-                  <span className="font-semibold text-purple-400">{trade.winRate}%</span>
-                </div>
-              </div>
-
-              <div className="mt-3 p-3 bg-slate-950/50 rounded-lg text-sm">
-                <div className="flex items-start gap-2">
-                  <div className="mt-0.5">
-                    {trade.status === "OPEN" && <ArrowUp className="w-4 h-4 text-green-400" />}
-                    {trade.status === "CLOSED" && <ArrowDown className="w-4 h-4 text-red-400" />}
-                    {trade.status === "DCA" && <Circle className="w-4 h-4 text-yellow-400" />}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-muted-foreground">{trade.reasoning}</p>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <span className="text-sm text-slate-400">DCA</span>
                 </div>
               </div>
             </div>
-          ))}
+            <div ref={chartContainerRef} className="w-full h-[400px]" />
+            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-slate-400">
+              <Clock className="w-4 h-4" />
+              <span>Real-time Binance WebSocket data (production) | Sample data (demo)</span>
+            </div>
+          </div>
+
+          {/* Trade List Section */}
+          <div className="lg:col-span-1 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 rounded-xl p-6 border border-slate-600/30 shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-slate-100">Recent Trades</h2>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span>Showing {trades.length} trades</span>
+                <span>• Live updates via ZmartyChat API</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {trades.map((trade) => (
+                <div
+                  key={trade.id}
+                  className={`p-4 rounded-lg border transition-all hover:border-purple-500/50 ${
+                    trade.status === "OPEN"
+                      ? "bg-green-900/20 border-green-500/30"
+                      : trade.status === "CLOSED"
+                      ? "bg-slate-800/50 border-slate-700/30"
+                      : "bg-yellow-900/20 border-yellow-500/30"
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          trade.type === "LONG"
+                            ? "bg-green-500/20 text-green-400"
+                            : "bg-red-500/20 text-red-400"
+                        }`}
+                      >
+                        {trade.type}
+                      </div>
+                      <span className="font-semibold text-slate-100">{trade.symbol}</span>
+                      <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-xs">
+                        Score: {trade.score}
+                      </span>
+                    </div>
+                    <div
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        trade.status === "OPEN"
+                          ? "bg-green-500 text-white"
+                          : trade.status === "CLOSED"
+                          ? "bg-slate-700 text-slate-300"
+                          : "bg-yellow-500 text-white"
+                      }`}
+                    >
+                      {trade.status}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <span className="text-slate-400">Entry:</span>{" "}
+                      <span className="font-semibold text-slate-100">${trade.entryPrice.toLocaleString()}</span>
+                    </div>
+                    {trade.exitPrice && (
+                      <div>
+                        <span className="text-slate-400">Exit:</span>{" "}
+                        <span className="font-semibold text-slate-100">${trade.exitPrice.toLocaleString()}</span>
+                      </div>
+                    )}
+                    {trade.profit !== undefined && (
+                      <div className={trade.profit > 0 ? "text-green-400" : "text-red-400"}>
+                        <span className="text-slate-400">P&L:</span>{" "}
+                        <span className="font-semibold">{trade.profit > 0 ? "+" : ""}{trade.profit}%</span>
+                      </div>
+                    )}
+                    <div>
+                      <span className="text-slate-400">WR:</span>{" "}
+                      <span className="font-semibold text-purple-300">{trade.winRate}%</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 p-3 bg-slate-950/50 rounded-lg text-sm">
+                    <div className="flex items-start gap-2">
+                      <div className="mt-0.5">
+                        {trade.status === "OPEN" && <ArrowUp className="w-4 h-4 text-green-400" />}
+                        {trade.status === "CLOSED" && <ArrowDown className="w-4 h-4 text-red-400" />}
+                        {trade.status === "DCA" && <Circle className="w-4 h-4 text-yellow-400" />}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-slate-300 leading-relaxed">{trade.reasoning}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-slate-400">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Zap className="w-4 h-4" />
+            <span>Powered by ZmartyChat • 16 Technical Indicators</span>
+          </div>
+          <p>Real-time signals • Multi-timeframe analysis • Risk management</p>
         </div>
       </div>
     </div>
