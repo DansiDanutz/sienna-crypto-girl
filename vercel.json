@@ -1,18 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
+  "buildCommand": "cd frontend && npm run build",
+  "installCommand": "cd frontend && npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next",
-  "regions": ["iad1"],
-  "installCommand": "npm run vercel-build",
-  "functionsDirectory": "api",
-  "name": "sienna-crypto-girl",
-  "public": true,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "outputDirectory": "frontend/.next",
+  "regions": ["iad1"]
 }
