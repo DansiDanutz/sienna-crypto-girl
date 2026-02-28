@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TrendingUp, DollarSign, Activity, MessageSquare, Lobster, Zap, ArrowRight, BookOpen, Database, Cloud, Key } from "lucide-react";
+import { TrendingUp, DollarSign, Activity, MessageSquare, Zap, ArrowRight, BookOpen, Database, Cloud, Key, Shell } from "lucide-react";
 import TradingDashboard from "@/components/TradingDashboard";
 import ChatGame from "@/components/ChatGame";
 import StatsOverview from "@/components/StatsOverview";
@@ -29,7 +29,7 @@ export default function Home() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 lobster-pulse">
-                <Lobster className="w-10 h-10 text-lobster-red" />
+                <Shell className="w-10 h-10 text-lobster-red" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-lobster-red via-lobster-orange to-lobster-pink bg-clip-text text-transparent">
                   Sienna Crypto Girl
                 </span>
@@ -169,7 +169,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Lobster className="w-5 h-5 text-lobster-red" />
+              <Shell className="w-5 h-5 text-lobster-red" />
               <span>
                 Built by <strong className="text-foreground">Sienna 🌸</strong> - OpenClaw Red Lobster Agent
               </span>

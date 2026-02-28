@@ -110,10 +110,7 @@ export default function TradingDashboard() {
       width: chartContainerRef.current.clientWidth,
       height: 400,
       layout: {
-        background: { type: "linear", stops: [
-          { stop: 0, color: "#0f172a" },
-          { stop: 1, color: "#1e293b" }
-        ] },
+        background: { color: "#0f172a" },
         textColor: "#e2e8f0",
       },
       grid: {
@@ -143,7 +140,7 @@ export default function TradingDashboard() {
     });
 
     // Add sample candle data - in production, fetch from Binance API
-    const candleData: CandlestickData[] = [
+    const candleData: any[] = [
       { time: Date.now() - 86400000, open: 66000, high: 66500, low: 65800, close: 66200 },
       { time: Date.now() - 82800000, open: 66200, high: 66800, low: 66000, close: 66500 },
       { time: Date.now() - 79200000, open: 66500, high: 67000, low: 66300, close: 66800 },
@@ -164,7 +161,7 @@ export default function TradingDashboard() {
     candleSeries.setData(candleData);
 
     // Add markers for trades
-    const markers: ChartMarker[] = trades.flatMap((trade) => [
+    const markers: any[] = trades.flatMap((trade) => [
       {
         time: trade.entryTime,
         position: "belowBar" as const,
@@ -439,6 +436,7 @@ export default function TradingDashboard() {
                       </div>
                     </div>
                   </div>
+                </div>
                 ))}
             </div>
           </div>

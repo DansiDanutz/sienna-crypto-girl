@@ -19,7 +19,7 @@ export default function MonetizationCards() {
           </div>
           <div className="flex items-start gap-2">
             <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-            <span className="text-sm">Auto-filtered signals (WR > 65%)</span>
+            <span className="text-sm">Auto-filtered signals (WR &gt; 65%)</span>
           </div>
           <div className="flex items-start gap-2">
             <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
