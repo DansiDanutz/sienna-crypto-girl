@@ -8,6 +8,12 @@ import StatsOverview from "@/components/StatsOverview";
 import ZmartyPromotionCards from "@/components/ZmartyPromotionCards";
 import APIDocumentationCard from "@/components/APIDocumentationCard";
 import TransparencySection from "@/components/TransparencySection";
+import LivePriceTicker from "@/components/LivePriceTicker";
+import PortfolioRebalancer from "@/components/PortfolioRebalancer";
+import RiskDashboard from "@/components/RiskDashboard";
+import PatternScanner from "@/components/PatternScanner";
+import SentimentEngine from "@/components/SentimentEngine";
+import SecurityAudit from "@/components/SecurityAudit";
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -147,6 +153,11 @@ export default function Home() {
         <APIDocumentationCard />
         <ZmartyPromotionCards />
 
+        {/* Live Price Ticker — full width */}
+        <div className="mb-6">
+          <LivePriceTicker />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Trading Dashboard (2/3) */}
           <div className="lg:col-span-2 space-y-6">
@@ -161,6 +172,28 @@ export default function Home() {
               <ChatGame />
             </div>
           </div>
+        </div>
+
+        {/* AI Trading Tools Section */}
+        <div className="mt-10 space-y-6">
+          <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            🤖 Sienna&apos;s AI Trading Toolkit
+          </h2>
+
+          {/* Row 1: Portfolio + Pattern */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <PortfolioRebalancer />
+            <PatternScanner />
+          </div>
+
+          {/* Row 2: Risk + Sentiment */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <RiskDashboard />
+            <SentimentEngine />
+          </div>
+
+          {/* Row 3: Security Audit full width */}
+          <SecurityAudit />
         </div>
       </div>
 
