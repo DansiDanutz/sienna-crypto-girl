@@ -25,7 +25,7 @@ export interface DetectedPattern {
   formationStart: number      // timestamp
   formationEnd: number        // timestamp
   description: string
-  winRateHistorical: number   // % win rate for this pattern
+  winRate: number             // % win rate for this pattern
 }
 
 export interface OHLCV {
