@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sienna Crypto Girl 🌸 - OpenClaw Red Lobster Agent",
-  description: "Easy to trade, You win! Watch Sienna Crypto Girl trade live using ZmartyChat's scoring signals. Real-time trading dashboard with interactive chat.",
+  title: "Zmarty | Member Area",
+  description: "Zmarty member platform — billing, API access, and market intelligence tiers.",
 };
 
 export default function RootLayout({
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
+        <ServiceWorkerCleanup />
         {children}
       </body>
     </html>
