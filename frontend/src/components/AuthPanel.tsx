@@ -18,6 +18,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
   const [loading, setLoading] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [didRedirect, setDidRedirect] = useState(false);
+  const appOrigin = "https://app.zmarty.me";
   const loginRedirectPath = `/login?next=${encodeURIComponent(nextPath)}`;
 
   const supabase = useMemo(() => {
@@ -68,7 +69,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
         : await supabase.auth.signUp({
             ...credentials,
             options: {
-              emailRedirectTo: `${window.location.origin}${loginRedirectPath}`,
+              emailRedirectTo: `${appOrigin}${loginRedirectPath}`,
             },
           });
 
@@ -95,7 +96,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
     const { error: authError } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}${loginRedirectPath}`,
+        redirectTo: `${appOrigin}${loginRedirectPath}`,
       },
     });
 
