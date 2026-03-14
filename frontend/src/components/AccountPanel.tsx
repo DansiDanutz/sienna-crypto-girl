@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { KeyRound, CreditCard, ShieldCheck, RefreshCw } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { TIER_CONFIG } from "@/lib/tiers";
@@ -46,6 +47,7 @@ export default function AccountPanel({
   requestedPlan: "gold" | "premium" | null;
   checkoutStatus: "success" | "cancelled" | null;
 }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -134,6 +136,12 @@ export default function AccountPanel({
   useEffect(() => {
     loadAccount();
   }, []);
+
+  useEffect(() => {
+    if (authState === "unauthenticated") {
+      router.replace("/login?next=%2Faccount");
+    }
+  }, [authState, router]);
 
   useEffect(() => {
     if (!supabase) return;
