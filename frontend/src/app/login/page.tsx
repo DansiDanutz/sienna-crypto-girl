@@ -16,7 +16,7 @@ export default async function LoginPage({
   const requestedPlan = typeof params.plan === "string" ? params.plan : undefined;
   const allowedPlan = requestedPlan === "gold" || requestedPlan === "premium" ? requestedPlan : null;
 
-  let nextPath = "/account?view=tiers";
+  let nextPath = "/";
   if (rawNext && rawNext.startsWith("/")) {
     nextPath = rawNext;
   } else if (allowedPlan) {
