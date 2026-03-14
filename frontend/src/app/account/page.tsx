@@ -24,7 +24,7 @@ export default async function AccountPage({
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4 py-12">
       <div className="mx-auto max-w-6xl">
-        <BackActions fallbackHref="/pricing" homeHref="/" backLabel="Back" />
+        <BackActions fallbackHref="/pricing" homeHref="https://zmarty.me" backLabel="Back" />
         <AccountPanel
           tiersOnly={tiersOnly}
           requestedPlan={requestedPlan}

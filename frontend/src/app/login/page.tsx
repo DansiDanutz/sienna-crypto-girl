@@ -16,7 +16,7 @@ export default async function LoginPage({
   const requestedPlan = typeof params.plan === "string" ? params.plan : undefined;
   const allowedPlan = requestedPlan === "gold" || requestedPlan === "premium" ? requestedPlan : null;
 
-  let nextPath = "/";
+  let nextPath = "/account";
   if (rawNext && rawNext.startsWith("/")) {
     nextPath = rawNext;
   } else if (allowedPlan) {
@@ -26,7 +26,7 @@ export default async function LoginPage({
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4 py-12">
       <div className="mx-auto max-w-6xl">
-        <BackActions fallbackHref="/pricing" homeHref="/" backLabel="Back" />
+        <BackActions fallbackHref="/pricing" homeHref="https://zmarty.me" backLabel="Back" />
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={nextPath}
