@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { KeyRound, CreditCard, ShieldCheck, RefreshCw } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { TIER_CONFIG } from "@/lib/tiers";
+import TransparencySection from "@/components/TransparencySection";
+import SecurityAudit from "@/components/SecurityAudit";
 
 interface MemberProfile {
   tier: "free" | "gold" | "premium";
@@ -326,6 +328,27 @@ export default function AccountPanel({
         </div>
       )}
 
+      <div className="rounded-3xl border border-emerald-400/15 bg-emerald-400/5 p-5 sm:p-6">
+        <h2 className="text-xl font-bold text-white">Trust before upgrade</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-300">
+          Zmarty is an analytics and intelligence platform. This account zone should make it obvious what users are
+          buying, how access works, and what the platform does not do. Research, paper trading, and live execution are
+          different states and should never blur together during onboarding.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            ["Visible billing", "Users can see tier, credits, billing portal access, and API eligibility from one member surface."],
+            ["Transparent access", "Gold and Premium unlock API access through personal keys instead of hidden or implied backend magic."],
+            ["Execution boundaries", "Signals and analysis are visible, but the product does not pretend to silently execute trades or act like a broker."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+              <div className="text-sm font-semibold text-white">{title}</div>
+              <p className="mt-2 text-xs leading-6 text-slate-400">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {!loading && authState === "unauthenticated" && (
         <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-5 sm:p-6">
           <h2 className="text-xl font-bold text-white">Sign in to continue into the member app</h2>
@@ -354,6 +377,7 @@ export default function AccountPanel({
         <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 text-slate-300">Loading account…</div>
       ) : (
         <>
+          <TransparencySection />
           <div className={`grid gap-6 ${tiersOnly ? "max-w-3xl" : "lg:grid-cols-2"}`}>
             <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
               <div className="flex items-center gap-3">
@@ -441,6 +465,8 @@ export default function AccountPanel({
             </div>
             )}
           </div>
+
+          {!tiersOnly && <SecurityAudit />}
 
           {!tiersOnly && (
           <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
