@@ -10,7 +10,8 @@ type Mode = "login" | "signup";
 
 export default function AuthPanel({ nextPath }: { nextPath: string }) {
   const router = useRouter();
-  const [mode, setMode] = useState<Mode>("login");
+  const upgradeIntent = nextPath.includes("view=tiers") || nextPath.includes("plan=");
+  const [mode, setMode] = useState<Mode>(upgradeIntent ? "signup" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -50,6 +51,12 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
     setDidRedirect(true);
     router.replace(nextPath);
   }, [didRedirect, nextPath, router, sessionEmail]);
+
+  const switchMode = (nextMode: Mode) => {
+    setMode(nextMode);
+    setError("");
+    setMessage("");
+  };
 
   const handleEmailAuth = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -159,7 +166,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
         <div className="mb-6 flex items-center gap-3 rounded-2xl bg-white/5 p-2">
           <button
             type="button"
-            onClick={() => setMode("login")}
+            onClick={() => switchMode("login")}
             className={`flex-1 rounded-2xl px-4 py-3 text-sm font-bold transition ${
               mode === "login" ? "bg-[#ff8c00] text-slate-950" : "text-slate-300"
             }`}
@@ -168,7 +175,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
           </button>
           <button
             type="button"
-            onClick={() => setMode("signup")}
+            onClick={() => switchMode("signup")}
             className={`flex-1 rounded-2xl px-4 py-3 text-sm font-bold transition ${
               mode === "signup" ? "bg-[#ff8c00] text-slate-950" : "text-slate-300"
             }`}
@@ -189,11 +196,26 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
             </p>
           </div>
 
+          {upgradeIntent && (
+            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3 text-sm leading-6 text-cyan-100">
+              You came from the pricing ladder. Create the account first, then continue straight into the tier zone
+              without losing billing or upgrade context.
+            </div>
+          )}
+
+          {!supabase && (
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-950/30 px-4 py-3 text-sm leading-6 text-amber-100">
+              This deployment is missing Supabase browser auth configuration. Review pricing here, or open the live
+              app environment where login and member onboarding are fully wired.
+            </div>
+          )}
+
           <label className="block">
             <span className="mb-2 block text-[12px] font-bold uppercase tracking-[0.16em] text-slate-400">Email address</span>
             <input
               type="email"
               required
+              disabled={!supabase || loading}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-[#ff8c00]"
@@ -207,6 +229,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
               type="password"
               required
               minLength={6}
+              disabled={!supabase || loading}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-white outline-none transition focus:border-[#ff8c00]"
@@ -216,7 +239,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={!supabase || loading}
             className="w-full rounded-2xl bg-gradient-to-r from-[#ff9d2f] to-[#ff7f11] px-5 py-4 text-sm font-bold text-slate-950 shadow-[0_18px_40px_rgba(255,140,0,0.26)] transition hover:-translate-y-0.5 disabled:opacity-60"
           >
             {mode === "login" ? "Sign in with email" : "Create account"}
@@ -231,7 +254,7 @@ export default function AuthPanel({ nextPath }: { nextPath: string }) {
           <button
             type="button"
             onClick={handleGoogleAuth}
-            disabled={loading}
+            disabled={!supabase || loading}
             className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-white transition hover:border-cyan-300/40 disabled:opacity-60"
           >
             Continue with Google

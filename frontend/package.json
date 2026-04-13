@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "smoke:member-flow": "node scripts/smoke-member-flow.mjs"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.8.7",

@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { KeyRound, CreditCard, ShieldCheck, RefreshCw } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { TIER_CONFIG } from "@/lib/tiers";
@@ -49,7 +48,6 @@ export default function AccountPanel({
   requestedPlan: "gold" | "premium" | null;
   checkoutStatus: "success" | "cancelled" | null;
 }) {
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -66,6 +64,17 @@ export default function AccountPanel({
       return null;
     }
   }, []);
+
+  const resetToSignedOutState = (messageText?: string) => {
+    setAuthState("unauthenticated");
+    setSessionEmail(null);
+    setProfile(null);
+    setApiKeys([]);
+    setFreshKey(null);
+    if (messageText) {
+      setError(messageText);
+    }
+  };
 
   const withAccessToken = async <T,>(fn: (accessToken: string) => Promise<T>) => {
     if (!supabase) {
@@ -120,8 +129,12 @@ export default function AccountPanel({
         authorizedFetch("/api/member/api-key", session.access_token),
       ]);
 
-      const profileJson = await profileRes.json();
-      const keysJson = await keysRes.json();
+      const [profileJson, keysJson] = await Promise.all([profileRes.json(), keysRes.json()]);
+
+      if ([profileRes.status, keysRes.status].some((status) => status === 401 || status === 403)) {
+        resetToSignedOutState("Your member session expired. Sign in again to continue.");
+        return;
+      }
 
       if (!profileRes.ok) throw new Error(profileJson.error ?? "Failed to load member profile.");
       if (!keysRes.ok) throw new Error(keysJson.error ?? "Failed to load API keys.");
@@ -138,12 +151,6 @@ export default function AccountPanel({
   useEffect(() => {
     loadAccount();
   }, []);
-
-  useEffect(() => {
-    if (authState === "unauthenticated") {
-      router.replace("/login?next=%2Faccount");
-    }
-  }, [authState, router]);
 
   useEffect(() => {
     if (!supabase) return;
@@ -266,6 +273,9 @@ export default function AccountPanel({
     }
   }, [checkoutStatus, requestedPlan, loading, profile?.tier]);
 
+  const showMemberControls = authState === "authenticated";
+  const showSubscriptionPreview = showMemberControls || tiersOnly;
+
   return (
     <section className="space-y-6">
       <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
@@ -373,11 +383,38 @@ export default function AccountPanel({
         </div>
       )}
 
+      {!loading && authState === "misconfigured" && (
+        <div className="rounded-3xl border border-amber-500/20 bg-amber-500/10 p-5 sm:p-6">
+          <h2 className="text-xl font-bold text-white">Member auth is not configured in this environment</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-amber-100">
+            This deployment can still show pricing and onboarding context, but login and member account controls need
+            the `NEXT_PUBLIC_SUPABASE_*` browser auth variables before the protected flow can work end to end.
+          </p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/pricing"
+              className="inline-flex justify-center rounded-2xl bg-amber-400 px-4 py-3 text-sm font-bold text-slate-950"
+            >
+              Review pricing
+            </Link>
+            <a
+              href="https://app.zmarty.me"
+              className="inline-flex justify-center rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm font-semibold text-white"
+            >
+              Open live app
+            </a>
+          </div>
+        </div>
+      )}
+
       {loading ? (
-        <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 text-slate-300">Loading account…</div>
+        <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 text-slate-300">
+          Loading account, billing, and API access…
+        </div>
       ) : (
         <>
           <TransparencySection />
+          {showSubscriptionPreview ? (
           <div className={`grid gap-6 ${tiersOnly ? "max-w-3xl" : "lg:grid-cols-2"}`}>
             <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
               <div className="flex items-center gap-3">
@@ -397,9 +434,9 @@ export default function AccountPanel({
                 </div>
               )}
               <div className="mt-6 space-y-3 text-sm text-slate-200">
-                <div>Email: {sessionEmail ?? "Unknown"}</div>
+                <div>Email: {sessionEmail ?? (tiersOnly ? "Create account to activate" : "Sign in required")}</div>
                 <div>Tier: {currentTierConfig?.label ?? "Free"}</div>
-                <div>Status: {profile?.subscription_status ?? "inactive"}</div>
+                <div>Status: {profile?.subscription_status ?? (tiersOnly ? "preview" : "inactive")}</div>
                 <div>Credits: {profile?.credits_balance ?? 0}</div>
                 <div>
                   Period end: {profile?.current_period_end ? new Date(profile.current_period_end).toLocaleString() : "n/a"}
@@ -438,7 +475,7 @@ export default function AccountPanel({
               </div>
             </div>
 
-            {!tiersOnly && (
+            {!tiersOnly && showMemberControls && (
             <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-6 w-6 text-emerald-300" />
@@ -461,19 +498,36 @@ export default function AccountPanel({
                   <KeyRound className="h-4 w-4" />
                   Generate API key
                 </button>
+                {!profile?.api_access_enabled && (
+                  <p className="mt-3 text-xs leading-6 text-slate-400">
+                    Upgrade to Gold or Premium first. API access stays off until the paid member tier is active.
+                  </p>
+                )}
               </div>
             </div>
             )}
           </div>
+          ) : (
+            <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
+              <h2 className="text-2xl font-bold text-white">Member controls open after sign-in</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
+                Billing history, API keys, tier status, and protected analytics access stay inside the signed-in member
+                zone. Use the sign-in action above to continue into the full control panel.
+              </p>
+            </div>
+          )}
 
-          {!tiersOnly && <SecurityAudit />}
+          {!tiersOnly && showMemberControls && <SecurityAudit />}
 
-          {!tiersOnly && (
+          {!tiersOnly && showMemberControls && (
           <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:p-8">
             <h2 className="text-2xl font-bold text-white">Issued API keys</h2>
             <div className="mt-6 space-y-3">
               {apiKeys.length === 0 ? (
-                <div className="text-sm text-slate-400">No API keys issued yet.</div>
+                <div className="text-sm text-slate-400">
+                  No API keys issued yet. Generate one after Gold or Premium activation to use protected analytics
+                  endpoints.
+                </div>
               ) : (
                 apiKeys.map((key) => (
                   <div
