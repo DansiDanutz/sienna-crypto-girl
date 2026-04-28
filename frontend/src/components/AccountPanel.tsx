@@ -288,14 +288,22 @@ export default function AccountPanel({
               and Gold/Premium members can generate personal API keys for protected analytics endpoints.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={loadAccount}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm font-semibold text-white sm:w-auto"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Refresh
-          </button>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-100"
+            >
+              Open dashboard
+            </Link>
+            <button
+              type="button"
+              onClick={loadAccount}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm font-semibold text-white"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Refresh
+            </button>
+          </div>
         </div>
       </div>
 
