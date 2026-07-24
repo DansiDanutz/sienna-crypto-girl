@@ -1,10 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { scoreToLabel, demoSentimentReport, type SentimentReport } from '@/lib/sentiment'
+import { MemberAuthError, requireAuthenticatedMember } from '@/lib/member-auth'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { ApiInputError, isSafeSymbol, isValidHeadlineList, readBoundedJson } from '@/lib/api-input'
 
 const XAI_API_KEY = process.env.XAI_API_KEY
 
 export async function POST(req: NextRequest) {
-  const { symbol, headlines = [] } = await req.json() as { symbol: string; headlines?: string[] }
+  try {
+    await requireAuthenticatedMember(req)
+  } catch (error) {
+    if (error instanceof MemberAuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status })
+    }
+    return NextResponse.json({ error: 'Authentication failed.' }, { status: 500 })
+  }
+
+  const rateLimit = checkRateLimit(req, 'sentiment-analyze', 10, 60_000)
+  if (!rateLimit.allowed) return NextResponse.json({ error: 'Too many requests.' }, { status: 429 })
+  let body
+  try {
+    body = await readBoundedJson(req)
+  } catch (error) {
+    const status = error instanceof ApiInputError ? error.status : 400
+    return NextResponse.json({ error: 'Invalid request body.' }, { status })
+  }
+  const symbol = body?.symbol
+  const headlines = body?.headlines ?? []
+  if (!isSafeSymbol(symbol) || !isValidHeadlineList(headlines)) {
+    return NextResponse.json({ error: 'Invalid symbol or headlines.' }, { status: 400 })
+  }
 
   if (!XAI_API_KEY || headlines.length === 0) {
     return NextResponse.json(demoSentimentReport(symbol))

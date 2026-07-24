@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { MessageSquare, BarChart3, Loader2 } from 'lucide-react'
+import { getSupabaseBrowserClient } from '@/lib/supabase-browser'
 
 interface SentimentReport {
   symbol: string
@@ -78,11 +79,18 @@ export default function SentimentEngine() {
     setLoading(true)
     try {
       const headlines = SAMPLE_HEADLINES[symbol] ?? []
+      const { data } = await getSupabaseBrowserClient().auth.getSession()
+      const accessToken = data.session?.access_token
+      if (!accessToken) throw new Error('Sign in required')
       const res = await fetch('/api/sentiment/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
         body: JSON.stringify({ symbol, headlines }),
       })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setReport(await res.json())
     } catch {
       setReport(null)

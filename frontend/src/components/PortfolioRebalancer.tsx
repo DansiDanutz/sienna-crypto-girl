@@ -4,6 +4,7 @@
 import { useState } from 'react'
 import { RefreshCw, TrendingUp, TrendingDown, Minus, ChevronRight, AlertCircle } from 'lucide-react'
 import { DEMO_HOLDINGS } from '@/lib/portfolio'
+import { getSupabaseBrowserClient } from '@/lib/supabase-browser'
 
 type Strategy = 'equal-weight' | 'momentum' | 'risk-parity'
 
@@ -51,9 +52,15 @@ export default function PortfolioRebalancer() {
     setLoading(true)
     setError('')
     try {
+      const { data } = await getSupabaseBrowserClient().auth.getSession()
+      const accessToken = data.session?.access_token
+      if (!accessToken) throw new Error('Sign in required')
       const res = await fetch('/api/portfolio/rebalance', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
         body: JSON.stringify({ holdings: DEMO_HOLDINGS, strategy }),
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
