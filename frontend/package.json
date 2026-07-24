@@ -7,24 +7,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "smoke:member-flow": "node scripts/smoke-member-flow.mjs"
+    "smoke:member-flow": "node scripts/smoke-member-flow.mjs",
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "audit:ci": "node scripts/verify-audit.mjs"
   },
   "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/supabase-js": "^2.99.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.0.0",
     "lightweight-charts": "^4.1.0",
     "lucide-react": "^0.309.0",
-    "next": "^16.1.6",
+    "next": "^16.2.11",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "recharts": "^2.10.3",
     "stripe": "^20.4.1",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7",
-    "vercel": "^50.25.4"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
@@ -32,9 +32,14 @@
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.0",
     "eslint": "^10.0.2",
-    "eslint-config-next": "^16.1.6",
+    "eslint-config-next": "^16.2.11",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.0"
+  },
+  "overrides": {
+    "next": {
+      "sharp": "0.35.3"
+    }
   }
 }

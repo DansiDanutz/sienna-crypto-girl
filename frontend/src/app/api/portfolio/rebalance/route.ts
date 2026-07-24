@@ -4,14 +4,51 @@ import {
   computeTrades, computePortfolioStats,
   type Holding, type StrategyName, type RebalanceResult,
 } from '@/lib/portfolio'
+import { MemberAuthError, requireAuthenticatedMember } from '@/lib/member-auth'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { ApiInputError, isFiniteNumber, isSafeSymbol, readBoundedJson } from '@/lib/api-input'
 
 const XAI_API_KEY = process.env.XAI_API_KEY
 const XAI_CHAT_URL = 'https://api.x.ai/v1/chat/completions'
 
 export async function POST(req: NextRequest) {
-  const { holdings, strategy = 'risk-parity' } = await req.json() as {
-    holdings: Holding[]
-    strategy: StrategyName
+  try {
+    await requireAuthenticatedMember(req)
+  } catch (error) {
+    if (error instanceof MemberAuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status })
+    }
+    return NextResponse.json({ error: 'Authentication failed.' }, { status: 500 })
+  }
+
+  const rateLimit = checkRateLimit(req, 'portfolio-rebalance', 10, 60_000)
+  if (!rateLimit.allowed) return NextResponse.json({ error: 'Too many requests.' }, { status: 429 })
+  let body
+  try {
+    body = await readBoundedJson(req)
+  } catch (error) {
+    const status = error instanceof ApiInputError ? error.status : 400
+    return NextResponse.json({ error: 'Invalid request body.' }, { status })
+  }
+  const holdings = body?.holdings
+  const strategy = body?.strategy ?? 'risk-parity'
+  const strategies: StrategyName[] = ['equal-weight', 'momentum', 'risk-parity']
+  const validHoldings = Array.isArray(holdings)
+    && holdings.length > 0
+    && holdings.length <= 100
+    && holdings.every((holding: Holding) =>
+      isSafeSymbol(holding?.symbol)
+      && isFiniteNumber(holding?.value)
+      && isFiniteNumber(holding?.amount)
+      && isFiniteNumber(holding?.currentPrice)
+      && isFiniteNumber(holding?.targetWeight)
+      && isFiniteNumber(holding?.currentWeight)
+      && isFiniteNumber(holding?.change24h, -100)
+      && isFiniteNumber(holding?.volatility7d)
+      && isFiniteNumber(holding?.beta, Number.NEGATIVE_INFINITY),
+    )
+  if (!validHoldings || !strategies.includes(strategy)) {
+    return NextResponse.json({ error: 'Invalid holdings or strategy.' }, { status: 400 })
   }
 
   const totalValue = holdings.reduce((s, h) => s + h.value, 0)
