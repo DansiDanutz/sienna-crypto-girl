@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { MessageSquare, Send, Clock, User, Bot, Plus, Zap, Database, BookOpen } from "lucide-react";
+import { parseChatMarkup } from "@/lib/chat-markup";
 
 interface ChatMessage {
   id: string;
@@ -178,7 +179,15 @@ export default function ChatGame() {
                     : "bg-slate-800 rounded-bl-sm border border-primary/30"
                 }`}
               >
-                <p className="text-sm whitespace-pre-wrap" dangerouslySetInnerHTML={{__html: message.content}}></p>
+                <p className="text-sm whitespace-pre-wrap">
+                  {parseChatMarkup(message.content).map((segment, index) => (
+                    segment.strong ? (
+                      <strong key={index}>{segment.text}</strong>
+                    ) : (
+                      <Fragment key={index}>{segment.text}</Fragment>
+                    )
+                  ))}
+                </p>
                 <span className="text-xs text-muted-foreground mt-2 block">
                   {new Date(message.timestamp).toLocaleTimeString()}
                 </span>

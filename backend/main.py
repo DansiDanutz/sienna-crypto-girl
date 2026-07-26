@@ -6,11 +6,13 @@ from typing import List, Optional
 from datetime import datetime
 import asyncio
 import json
+import os
 from contextlib import asynccontextmanager
 
 from src.services.zmartychat_service import ZmartyChatService
 from src.services.supabase_service import SupabaseService
 from src.services.chat_service import ChatService
+from src.security import parse_cors_origins
 
 # Lifespan
 @asynccontextmanager
@@ -32,10 +34,10 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=parse_cors_origins(os.getenv("CORS_ALLOWED_ORIGINS")),
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-API-Key"],
 )
 
 # Services

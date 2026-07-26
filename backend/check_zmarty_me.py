@@ -368,7 +368,7 @@ def check_zmarty_me():
                 "current": "Detected",
                 "target": "Automation, Bots, Influencers, Affiliate Marketing",
                 "score": "6/10",
-                "recommendation": "Implement scaling phase (automation 'content bot, signal bot, engagement bot', bots 'auto-like, auto-retweet, auto-follow', influencers 'partnerships, sponsorships, shoutouts', affiliate marketing 'referral program, viral growth')")
+                "recommendation": "Implement scaling phase (automation 'content bot, signal bot, engagement bot', bots 'auto-like, auto-retweet, auto-follow', influencers 'partnerships, sponsorships, shoutouts', affiliate marketing 'referral program, viral growth')"
             }
         }
 
@@ -543,16 +543,26 @@ def check_zmarty_me():
 
         return analysis
 
+    except requests.RequestException as exc:
+        return {
+            "url": url,
+            "date": datetime.utcnow().isoformat(),
+            "error": f"Website request failed: {exc}",
+        }
+
 def main():
     """Main function to check zmarty.me website"""
     analysis = check_zmarty_me()
+    if analysis.get("error"):
+        print(f"❌ {analysis['error']}")
+        return
     print("✅ ZMARTY.ME WEBSITE CHECK COMPLETE")
     print("🔍 ENHANCEMENT PLAN CREATED")
     print()
     print("📊 OVERALL SCORE: 7.2/10")
     print("🎯 PRIORITY IMPROVEMENTS:")
     for i, improvement in enumerate(analysis["enhancement_plan"]["summary"]["priority_improvements"], 1):
-        print(f"{i+1}. {improvement}")
+        print(f"{i}. {improvement}")
     print()
     print("💡 ESTIMATED TIMELINE: 4-6 weeks")
     print("💰 ESTIMATED BUDGET: $50,000-$100,000")
