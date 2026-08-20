@@ -48,3 +48,17 @@ test('CI executes immutable actions and compiles backend Python', () => {
   assert.match(workflow, /python3 -m compileall -q backend/)
   assert.match(workflow, /python3 -m unittest discover -s backend\/test/)
 })
+
+test('security audit does not certify unenforced request controls', () => {
+  const route = fs.readFileSync(
+    path.join(process.cwd(), 'src', 'app', 'api', 'security', 'audit', 'route.ts'),
+    'utf8',
+  )
+
+  assert.match(route, /Selected routes use best-effort process-local limits/)
+  assert.match(route, /deployment-wide enforcement is not configured/)
+  assert.match(route, /Runtime bounds are route-specific/)
+  assert.match(route, /TypeScript types alone do not validate request payloads/)
+  assert.doesNotMatch(route, /enforce scoped request limits/)
+  assert.doesNotMatch(route, /enforce bounded runtime validation/)
+})
